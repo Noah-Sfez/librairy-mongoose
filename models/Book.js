@@ -15,4 +15,5 @@ const bookSchema = new mongoose.Schema({
     nombreDeVentes: { type: Number, default: 0 },
 });
 
-module.exports = mongoose.model("Book", bookSchema);
+const Book = mongoose.model("Book", bookSchema);
+export default Book;

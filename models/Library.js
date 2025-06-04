@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const librarySchema = new mongoose.Schema({
     nom: { type: String, required: true },
@@ -11,4 +11,5 @@ const librarySchema = new mongoose.Schema({
     ],
 });
 
-module.exports = mongoose.model("Library", librarySchema);
+const Library = mongoose.model("Library", librarySchema);
+export default Library;

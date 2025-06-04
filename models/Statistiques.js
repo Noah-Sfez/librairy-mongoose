@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const statistiquesSchema = new mongoose.Schema({
     nombreVentesParLivre: [
@@ -13,4 +13,5 @@ const statistiquesSchema = new mongoose.Schema({
     ],
 });
 
-module.exports = mongoose.model("Statistiques", statistiquesSchema);
+const Statistiques = mongoose.model("Statistiques", statistiquesSchema);
+export default Statistiques;

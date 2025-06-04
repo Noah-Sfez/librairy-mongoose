@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const clientSchema = new mongoose.Schema({
     nom: { type: String, required: true },
@@ -7,4 +7,5 @@ const clientSchema = new mongoose.Schema({
     achatsPrecedents: [{ type: mongoose.Schema.Types.ObjectId, ref: "Book" }],
 });
 
-module.exports = mongoose.model("Client", clientSchema);
+const Client = mongoose.model("Client", clientSchema);
+export default Client;

@@ -3,6 +3,7 @@ import express from "express";
 import logger from "morgan";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
+import bookRoutes from "./routes/bookRoutes.js";
 
 import indexRouter from "./routes/index.js";
 
@@ -16,6 +17,7 @@ app.use(express.json());
 
 // Routes
 app.use("/", indexRouter);
+app.use("/api/books", bookRoutes);
 
 app.use(function (req, res, next) {
     next(createError(404));
