@@ -1,6 +1,5 @@
 import Book from "../models/Book.js";
 
-// Créer un livre
 export const createBook = async (req, res) => {
     try {
         const book = await Book.create(req.body);
@@ -10,7 +9,6 @@ export const createBook = async (req, res) => {
     }
 };
 
-// Récupérer tous les livres
 export const getAllBooks = async (req, res) => {
     try {
         const books = await Book.find();
@@ -20,7 +18,6 @@ export const getAllBooks = async (req, res) => {
     }
 };
 
-// Récupérer un livre par ID
 export const getBookById = async (req, res) => {
     try {
         const book = await Book.findById(req.params.id);
@@ -31,7 +28,6 @@ export const getBookById = async (req, res) => {
     }
 };
 
-// Mettre à jour un livre
 export const updateBook = async (req, res) => {
     try {
         const book = await Book.findByIdAndUpdate(req.params.id, req.body, {
@@ -44,7 +40,6 @@ export const updateBook = async (req, res) => {
     }
 };
 
-// Supprimer un livre
 export const deleteBook = async (req, res) => {
     try {
         const book = await Book.findByIdAndDelete(req.params.id);
