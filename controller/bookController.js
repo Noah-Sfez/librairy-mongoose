@@ -11,7 +11,59 @@ export const createBook = async (req, res) => {
 
 export const getAllBooks = async (req, res) => {
     try {
-        const books = await Book.find();
+        // Récupération des filtres depuis la query string
+        const {
+            titre,
+            auteur,
+            editeur,
+            genre,
+            saga,
+            minPrix,
+            maxPrix,
+            minPages,
+            maxPages,
+            dateMin,
+            dateMax,
+            format,
+            minVentes,
+            maxVentes,
+        } = req.query;
+
+        // Construction dynamique du filtre
+        let filter = {};
+
+        if (titre) filter.titre = { $regex: titre, $options: "i" };
+        if (auteur) filter["auteur.name"] = { $regex: auteur, $options: "i" };
+        if (editeur) filter.editeur = { $regex: editeur, $options: "i" };
+        if (genre) filter.genre = { $regex: genre, $options: "i" };
+        if (saga) filter.saga = { $regex: saga, $options: "i" };
+        if (format) filter.format = { $regex: format, $options: "i" };
+
+        if (minPrix || maxPrix) {
+            filter.prix = {};
+            if (minPrix) filter.prix.$gte = Number(minPrix);
+            if (maxPrix) filter.prix.$lte = Number(maxPrix);
+        }
+
+        if (minPages || maxPages) {
+            filter.nombreDePages = {};
+            if (minPages) filter.nombreDePages.$gte = Number(minPages);
+            if (maxPages) filter.nombreDePages.$lte = Number(maxPages);
+        }
+
+        if (dateMin || dateMax) {
+            filter.dateDeParution = {};
+            if (dateMin) filter.dateDeParution.$gte = new Date(dateMin);
+            if (dateMax) filter.dateDeParution.$lte = new Date(dateMax);
+        }
+
+        if (minVentes || maxVentes) {
+            filter.nombreDeVentes = {};
+            if (minVentes) filter.nombreDeVentes.$gte = Number(minVentes);
+            if (maxVentes) filter.nombreDeVentes.$lte = Number(maxVentes);
+        }
+
+        const books = await Book.find(filter);
         res.json(books);
     } catch (err) {
         res.status(500).json({ error: err.message });
