@@ -5,6 +5,7 @@ import {
     getLibraryById,
     updateLibrary,
     deleteLibrary,
+    addBookToLibrary
 } from "../controller/libraryController.js";
 
 const router = Router();
@@ -14,5 +15,6 @@ router.get("/", getAllLibraries);
 router.get("/:id", getLibraryById);
 router.put("/:id", updateLibrary);
 router.delete("/:id", deleteLibrary);
+router.post("/:libraryId/add-book", addBookToLibrary);
 
 export default router;

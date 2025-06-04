@@ -2,12 +2,16 @@ import mongoose from "mongoose";
 
 const bookSchema = new mongoose.Schema({
     titre: { type: String, required: true },
-    auteur: String,
+    auteur: [
+        {
+            name: { type: String, required: true },
+        }
+    ],
     editeur: { type: String, required: true },
-    dateDeParution: { type: Date, required: true },
+    dateDeParution: { type: Date },
     resume: String,
-    nombreDePages: { type: Number, required: true },
-    genre: { type: String, required: true },
+    nombreDePages: { type: Number },
+    genre: { type: String },
     format: String,
     saga: String,
     prix: { type: Number, required: true },

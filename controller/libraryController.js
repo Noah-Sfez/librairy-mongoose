@@ -30,9 +30,13 @@ export const getLibraryById = async (req, res) => {
 
 export const updateLibrary = async (req, res) => {
     try {
-        const Library = await Library.findByIdAndUpdate(req.params.id, req.body, {
-            new: true,
-        });
+        const Library = await Library.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            {
+                new: true,
+            }
+        );
         if (Library) res.json(Library);
         else res.status(404).json({ error: "Livre non trouvé" });
     } catch (err) {
@@ -45,6 +49,25 @@ export const deleteLibrary = async (req, res) => {
         const Library = await Library.findByIdAndDelete(req.params.id);
         if (Library) res.json({ message: "Livre supprimé" });
         else res.status(404).json({ error: "Livre non trouvé" });
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+};
+
+export const addBookToLibrary = async (req, res) => {
+    try {
+        const { libraryId } = req.params;
+        const { livre, stock } = req.body;
+
+        const library = await Library.findById(libraryId);
+        if (!library) {
+            return res.status(404).json({ error: "Librairie non trouvée" });
+        }
+
+        library.livres.push({ livre, stock });
+        await library.save();
+
+        res.status(200).json(library);
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
