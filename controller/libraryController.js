@@ -11,7 +11,7 @@ export const createLibrary = async (req, res) => {
 
 export const getAllLibraries = async (req, res) => {
     try {
-        const Libraries = await Library.find();
+        const Libraries = await Library.find().populate("livres.livre");
         res.json(Libraries);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -20,7 +20,9 @@ export const getAllLibraries = async (req, res) => {
 
 export const getLibraryById = async (req, res) => {
     try {
-        const Library = await Library.findById(req.params.id);
+        const Library = await Library.findById(req.params.id).populate(
+            "livres.livre"
+        );
         if (Library) res.json(Library);
         else res.status(404).json({ error: "Livre non trouvé" });
     } catch (err) {
