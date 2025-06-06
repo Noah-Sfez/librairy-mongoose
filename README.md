@@ -27,6 +27,8 @@ Ce projet a pour objectif de s'exercer sur MongoDB à travers la création d'une
 
 ## Collaborateurs
 
+Groupe A :
+
 - Noah SFEZ
 - Antoine SCHMERBER-PERRAUD
 - DIMITRI ZINDOVIC
