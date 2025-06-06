@@ -6,6 +6,7 @@ import {
     updateClient,
     deleteClient,
     getClientStats,
+    addBookToClient,
 } from "../controller/clientController.js";
 
 const router = Router();
@@ -17,5 +18,10 @@ router.get("/", getAllClients);
 router.get("/:id", getClientById);
 router.put("/:id", updateClient);
 router.delete("/:id", deleteClient);
+
+router.post("/:clientId/add-book", async (req, res) => {
+    req.body.clientId = req.params.clientId;
+    await addBookToClient(req, res);
+});
 
 export default router;

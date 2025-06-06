@@ -101,3 +101,14 @@ export const getClientStats = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+
+export const addBookToClient = async (req, res) => {
+    const { clientId, bookId } = req.body;
+    try {
+        const client = await Client.findById(clientId);
+        await client.addBook(bookId);
+        res.status(200).json({ message: "Book added to client" });
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+};

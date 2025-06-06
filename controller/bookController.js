@@ -27,6 +27,11 @@ export const getAllBooks = async (req, res) => {
             minVentes,
             maxVentes,
             text,
+            sort = "dateDeParution", // tri par défaut
+            order = "desc", // ordre par défaut
+            page = 1,
+            limit = 10,
+            isbn,
         } = req.query;
 
         let filter = {};
@@ -69,15 +74,31 @@ export const getAllBooks = async (req, res) => {
             }
         });
 
+        if (isbn) {
+            filter.isbn = Number(isbn);
+        }
+        const sortField = sort;
+        const sortOrder = order === "asc" ? 1 : -1;
+        const sortObj = {};
+        sortObj[sortField] = sortOrder;
+
+        const skip = (parseInt(page) - 1) * parseInt(limit);
+
         if (text) {
             const books = await Book.find(
                 { ...filter, $text: { $search: text } },
                 { score: { $meta: "textScore" } }
-            ).sort({ score: { $meta: "textScore" } });
+            )
+                .sort({ score: { $meta: "textScore" }, ...sortObj })
+                .skip(skip)
+                .limit(parseInt(limit));
             return res.json(books);
         }
 
-        const books = await Book.find(filter);
+        const books = await Book.find(filter)
+            .sort(sortObj)
+            .skip(skip)
+            .limit(parseInt(limit));
         res.json(books);
     } catch (err) {
         res.status(500).json({ error: err.message });
