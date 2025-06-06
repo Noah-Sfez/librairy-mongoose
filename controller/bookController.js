@@ -11,7 +11,6 @@ export const createBook = async (req, res) => {
 
 export const getAllBooks = async (req, res) => {
     try {
-        // Récupération des filtres depuis la query string
         const {
             titre,
             auteur,
@@ -29,39 +28,45 @@ export const getAllBooks = async (req, res) => {
             maxVentes,
         } = req.query;
 
-        // Construction dynamique du filtre
         let filter = {};
 
-        if (titre) filter.titre = { $regex: titre, $options: "i" };
-        if (auteur) filter["auteur.name"] = { $regex: auteur, $options: "i" };
-        if (editeur) filter.editeur = { $regex: editeur, $options: "i" };
-        if (genre) filter.genre = { $regex: genre, $options: "i" };
-        if (saga) filter.saga = { $regex: saga, $options: "i" };
-        if (format) filter.format = { $regex: format, $options: "i" };
+        const regexFields = [
+            { key: "titre", path: "titre" },
+            { key: "auteur", path: "auteur.name" },
+            { key: "editeur", path: "editeur" },
+            { key: "genre", path: "genre" },
+            { key: "saga", path: "saga" },
+            { key: "format", path: "format" },
+        ];
+        regexFields.forEach(({ key, path }) => {
+            if (req.query[key])
+                filter[path] = { $regex: req.query[key], $options: "i" };
+        });
 
-        if (minPrix || maxPrix) {
-            filter.prix = {};
-            if (minPrix) filter.prix.$gte = Number(minPrix);
-            if (maxPrix) filter.prix.$lte = Number(maxPrix);
-        }
-
-        if (minPages || maxPages) {
-            filter.nombreDePages = {};
-            if (minPages) filter.nombreDePages.$gte = Number(minPages);
-            if (maxPages) filter.nombreDePages.$lte = Number(maxPages);
-        }
-
-        if (dateMin || dateMax) {
-            filter.dateDeParution = {};
-            if (dateMin) filter.dateDeParution.$gte = new Date(dateMin);
-            if (dateMax) filter.dateDeParution.$lte = new Date(dateMax);
-        }
-
-        if (minVentes || maxVentes) {
-            filter.nombreDeVentes = {};
-            if (minVentes) filter.nombreDeVentes.$gte = Number(minVentes);
-            if (maxVentes) filter.nombreDeVentes.$lte = Number(maxVentes);
-        }
+        const rangeFields = [
+            { min: "minPrix", max: "maxPrix", path: "prix" },
+            { min: "minPages", max: "maxPages", path: "nombreDePages" },
+            {
+                min: "dateMin",
+                max: "dateMax",
+                path: "dateDeParution",
+                isDate: true,
+            },
+            { min: "minVentes", max: "maxVentes", path: "nombreDeVentes" },
+        ];
+        rangeFields.forEach(({ min, max, path, isDate }) => {
+            if (req.query[min] || req.query[max]) {
+                filter[path] = {};
+                if (req.query[min])
+                    filter[path].$gte = isDate
+                        ? new Date(req.query[min])
+                        : Number(req.query[min]);
+                if (req.query[max])
+                    filter[path].$lte = isDate
+                        ? new Date(req.query[max])
+                        : Number(req.query[max]);
+            }
+        });
 
         const books = await Book.find(filter);
         res.json(books);

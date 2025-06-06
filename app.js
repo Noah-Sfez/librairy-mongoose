@@ -18,9 +18,9 @@ app.use(logger("dev"));
 app.use(express.json());
 
 app.use("/", indexRouter);
-app.use("/api/books", bookRoutes);
-app.use("/api/libraries", libraryRoutes);
-app.use("/api/clients", clientRoutes);
+app.use("/books", bookRoutes);
+app.use("/libraries", libraryRoutes);
+app.use("/clients", clientRoutes);
 
 app.use(function (req, res, next) {
     next(createError(404));
