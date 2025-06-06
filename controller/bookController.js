@@ -106,3 +106,32 @@ export const deleteBook = async (req, res) => {
         res.status(400).json({ error: err.message });
     }
 };
+
+export const searchBooks = async (req, res) => {
+    try {
+        const { q } = req.query;
+        if (!q)
+            return res
+                .status(400)
+                .json({ error: "Paramètre de recherche manquant" });
+
+        // Recherche dans le titre
+        const titreResults = await Book.find({
+            titre: { $regex: q, $options: "i" },
+        });
+
+        // Recherche dans le résumé, en excluant les livres déjà trouvés par titre
+        const titreIds = titreResults.map((book) => book._id);
+        const resumeResults = await Book.find({
+            _id: { $nin: titreIds },
+            resume: { $regex: q, $options: "i" },
+        });
+
+        // Fusionne les deux listes, titres d'abord
+        const results = [...titreResults, ...resumeResults];
+
+        res.json(results);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};

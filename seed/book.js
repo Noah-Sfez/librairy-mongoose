@@ -37,7 +37,7 @@ const books = [
         isbn: 9782729849214,
     },
     {
-        titre: "Londres et ses environs",
+        titre: "Londres et ses environs : le guide complet",
         auteur: [
             {
                 name: "Isabelle Allard",
