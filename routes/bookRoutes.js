@@ -11,7 +11,7 @@ import {
 const router = Router();
 
 router.post("/", createBook);
-router.get("/search", searchBooks); // <-- Place cette ligne AVANT /:id
+router.get("/search", searchBooks);
 router.get("/", getAllBooks);
 router.get("/:id", getBookById);
 router.put("/:id", updateBook);
