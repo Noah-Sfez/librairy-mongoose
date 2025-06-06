@@ -112,7 +112,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/books?genre=Fantasy&minPrix=10&maxPrix=20",
+							"raw": "http://localhost:3000/books?genre=conte&minPrix=10&text=le guide complet",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -124,15 +124,15 @@
 							"query": [
 								{
 									"key": "genre",
-									"value": "Fantasy"
+									"value": "conte"
 								},
 								{
 									"key": "minPrix",
 									"value": "10"
 								},
 								{
-									"key": "maxPrix",
-									"value": "20"
+									"key": "text",
+									"value": "le guide complet"
 								}
 							]
 						}
@@ -154,6 +154,57 @@
 							"path": [
 								"books",
 								"68429a2fb46db4a7fc8fc5b6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Book Stats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/books/stats",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"books",
+								"stats"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Assigner Livre/client",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"bookId\": \"68429a2fb46db4a7fc8fc5b8\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/clients/68429a2fb46db4a7fc8fc5d3/add-book/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"clients",
+								"68429a2fb46db4a7fc8fc5d3",
+								"add-book",
+								""
 							]
 						}
 					},
@@ -243,7 +294,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/libraries",
+							"raw": "http://localhost:3000/libraries?populate=true",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -251,6 +302,12 @@
 							"port": "3000",
 							"path": [
 								"libraries"
+							],
+							"query": [
+								{
+									"key": "populate",
+									"value": "true"
+								}
 							]
 						}
 					},
@@ -299,6 +356,26 @@
 							"path": [
 								"libraries",
 								"68429ee9b5de0269912ac126"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Librairie Stats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/libraries/stats",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"libraries",
+								"stats"
 							]
 						}
 					},
@@ -456,6 +533,38 @@
 							"path": [
 								"clients",
 								"6842a0cadb6536809f6e8005"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Clients Stats",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/clients/stats",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"clients",
+								"stats"
 							]
 						}
 					},
