@@ -5,7 +5,7 @@ const bookSchema = new mongoose.Schema({
     auteur: [
         {
             name: { type: String, required: true },
-        }
+        },
     ],
     editeur: { type: String, required: true },
     dateDeParution: { type: Date },
@@ -18,6 +18,8 @@ const bookSchema = new mongoose.Schema({
     isbn: { type: Number, required: true, unique: true },
     nombreDeVentes: { type: Number, default: 0 },
 });
+
+bookSchema.index({ titre: "text", resume: "text" });
 
 const Book = mongoose.model("Book", bookSchema);
 export default Book;

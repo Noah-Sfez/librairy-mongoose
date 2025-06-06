@@ -70,21 +70,11 @@ export const getAllBooks = async (req, res) => {
         });
 
         if (text) {
-            const titreFilter = {
-                ...filter,
-                titre: { $regex: text, $options: "i" },
-            };
-            const titreResults = await Book.find(titreFilter);
-
-            const titreIds = titreResults.map((book) => book._id);
-            const resumeFilter = {
-                ...filter,
-                _id: { $nin: titreIds },
-                resume: { $regex: text, $options: "i" },
-            };
-            const resumeResults = await Book.find(resumeFilter);
-
-            return res.json([...titreResults, ...resumeResults]);
+            const books = await Book.find(
+                { ...filter, $text: { $search: text } },
+                { score: { $meta: "textScore" } }
+            ).sort({ score: { $meta: "textScore" } });
+            return res.json(books);
         }
 
         const books = await Book.find(filter);
