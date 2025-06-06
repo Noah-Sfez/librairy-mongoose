@@ -26,6 +26,7 @@ export const getAllBooks = async (req, res) => {
             format,
             minVentes,
             maxVentes,
+            text,
         } = req.query;
 
         let filter = {};
@@ -67,6 +68,24 @@ export const getAllBooks = async (req, res) => {
                         : Number(req.query[max]);
             }
         });
+
+        if (text) {
+            const titreFilter = {
+                ...filter,
+                titre: { $regex: text, $options: "i" },
+            };
+            const titreResults = await Book.find(titreFilter);
+
+            const titreIds = titreResults.map((book) => book._id);
+            const resumeFilter = {
+                ...filter,
+                _id: { $nin: titreIds },
+                resume: { $regex: text, $options: "i" },
+            };
+            const resumeResults = await Book.find(resumeFilter);
+
+            return res.json([...titreResults, ...resumeResults]);
+        }
 
         const books = await Book.find(filter);
         res.json(books);
