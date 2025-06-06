@@ -27,8 +27,8 @@ export const getAllBooks = async (req, res) => {
             minVentes,
             maxVentes,
             text,
-            sort = "dateDeParution", // tri par défaut
-            order = "desc", // ordre par défaut
+            sort = "dateDeParution",
+            order = "desc",
             page = 1,
             limit = 10,
             isbn,
