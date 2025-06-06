@@ -31,4 +31,4 @@ Groupe A :
 
 - Noah SFEZ
 - Antoine SCHMERBER-PERRAUD
-- DIMITRI ZINDOVIC
+- Dimitri ZINDOVIC
