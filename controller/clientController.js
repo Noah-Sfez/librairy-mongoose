@@ -49,3 +49,55 @@ export const deleteClient = async (req, res) => {
         res.status(400).json({ error: err.message });
     }
 };
+
+export const getClientStats = async (req, res) => {
+    try {
+        const stats = await Client.aggregate([
+            {
+                $facet: {
+                    totalClients: [{ $count: "count" }],
+                    ageMoyen: [
+                        { $group: { _id: null, avgAge: { $avg: "$age" } } },
+                    ],
+                    achatsTotal: [
+                        {
+                            $project: {
+                                achatsCount: {
+                                    $size: {
+                                        $ifNull: ["$achatsPrecedents", []],
+                                    },
+                                },
+                            },
+                        },
+                        {
+                            $group: {
+                                _id: null,
+                                totalAchats: { $sum: "$achatsCount" },
+                            },
+                        },
+                    ],
+                    clientsAvecAchats: [
+                        {
+                            $match: {
+                                achatsPrecedents: {
+                                    $exists: true,
+                                    $not: { $size: 0 },
+                                },
+                            },
+                        },
+                        { $count: "count" },
+                    ],
+                },
+            },
+        ]);
+
+        res.json({
+            totalClients: stats[0].totalClients[0]?.count || 0,
+            ageMoyen: stats[0].ageMoyen[0]?.avgAge || 0,
+            achatsTotal: stats[0].achatsTotal[0]?.totalAchats || 0,
+            clientsAvecAchats: stats[0].clientsAvecAchats[0]?.count || 0,
+        });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};

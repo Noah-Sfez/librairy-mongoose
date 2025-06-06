@@ -115,22 +115,45 @@ export const searchBooks = async (req, res) => {
                 .status(400)
                 .json({ error: "Paramètre de recherche manquant" });
 
-        // Recherche dans le titre
         const titreResults = await Book.find({
             titre: { $regex: q, $options: "i" },
         });
 
-        // Recherche dans le résumé, en excluant les livres déjà trouvés par titre
         const titreIds = titreResults.map((book) => book._id);
         const resumeResults = await Book.find({
             _id: { $nin: titreIds },
             resume: { $regex: q, $options: "i" },
         });
 
-        // Fusionne les deux listes, titres d'abord
         const results = [...titreResults, ...resumeResults];
 
         res.json(results);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+export const getBookStats = async (req, res) => {
+    try {
+        const stats = await Book.aggregate([
+            {
+                $facet: {
+                    totalLivres: [{ $count: "count" }],
+                    prixMoyen: [
+                        { $group: { _id: null, avgPrix: { $avg: "$prix" } } },
+                    ],
+                    livresParGenre: [
+                        { $group: { _id: "$genre", count: { $sum: 1 } } },
+                    ],
+                },
+            },
+        ]);
+
+        res.json({
+            totalLivres: stats[0].totalLivres[0]?.count || 0,
+            prixMoyen: stats[0].prixMoyen[0]?.avgPrix || 0,
+            livresParGenre: stats[0].livresParGenre,
+        });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }

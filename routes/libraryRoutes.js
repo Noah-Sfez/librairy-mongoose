@@ -5,12 +5,14 @@ import {
     getLibraryById,
     updateLibrary,
     deleteLibrary,
-    addBookToLibrary
+    addBookToLibrary,
+    getLibraryStats,
 } from "../controller/libraryController.js";
 
 const router = Router();
 
 router.post("/", createLibrary);
+router.get("/stats", getLibraryStats);
 router.get("/", getAllLibraries);
 router.get("/:id", getLibraryById);
 router.put("/:id", updateLibrary);

@@ -11,7 +11,12 @@ export const createLibrary = async (req, res) => {
 
 export const getAllLibraries = async (req, res) => {
     try {
-        const libraries = await Library.find().populate("livres.livre");
+        const shouldPopulate = req.query.populate === "true";
+        let query = Library.find();
+        if (shouldPopulate) {
+            query = query.populate("livres.livre");
+        }
+        const libraries = await query;
         res.json(libraries);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -70,5 +75,43 @@ export const addBookToLibrary = async (req, res) => {
         res.status(200).json(library);
     } catch (err) {
         res.status(400).json({ error: err.message });
+    }
+};
+
+export const getLibraryStats = async (req, res) => {
+    try {
+        const stats = await Library.aggregate([
+            {
+                $project: {
+                    livresCount: { $size: { $ifNull: ["$livres", []] } },
+                    stockCount: {
+                        $sum: {
+                            $map: {
+                                input: { $ifNull: ["$livres", []] },
+                                as: "livre",
+                                in: "$$livre.stock",
+                            },
+                        },
+                    },
+                    localisation: 1,
+                },
+            },
+            {
+                $group: {
+                    _id: null,
+                    avgLivres: { $avg: "$livresCount" },
+                    avgStock: { $avg: "$stockCount" },
+                    totalLibraries: { $sum: 1 },
+                },
+            },
+        ]);
+
+        res.json({
+            totalLibraries: stats[0]?.totalLibraries || 0,
+            livresMoyens: stats[0]?.avgLivres || 0,
+            stockMoyen: stats[0]?.avgStock || 0,
+        });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
 };
