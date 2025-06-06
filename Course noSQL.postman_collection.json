@@ -145,7 +145,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/books/:id",
+							"raw": "http://localhost:3000/books/68429a2fb46db4a7fc8fc5b6",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -153,13 +153,7 @@
 							"port": "3000",
 							"path": [
 								"books",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": ""
-								}
+								"68429a2fb46db4a7fc8fc5b6"
 							]
 						}
 					},
@@ -170,8 +164,17 @@
 					"request": {
 						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"titre\": \"Bionicle : Legacy of Satan\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:3000/books/:id",
+							"raw": "http://localhost:3000/books/68429a2fb46db4a7fc8fc5b6",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -179,13 +182,7 @@
 							"port": "3000",
 							"path": [
 								"books",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": ""
-								}
+								"68429a2fb46db4a7fc8fc5b6"
 							]
 						}
 					},
@@ -197,7 +194,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/books/:id",
+							"raw": "http://localhost:3000/books/68429a2fb46db4a7fc8fc5b6",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -205,13 +202,7 @@
 							"port": "3000",
 							"path": [
 								"books",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": ""
-								}
+								"68429a2fb46db4a7fc8fc5b6"
 							]
 						}
 					},
@@ -272,7 +263,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"titre\": \"Voyage en Sibérie\",\r\n  \"auteur\": [\r\n    { \"name\": \"Sylvain Tesson\" }\r\n  ],\r\n  \"editeur\": \"Gallimard\",\r\n  \"dateDeParution\": \"2011-10-06\",\r\n  \"resume\": \"Un récit d'aventure à travers la Sibérie.\",\r\n  \"nombreDePages\": 320,\r\n  \"genre\": \"Récit de voyage\",\r\n  \"format\": \"Broché\",\r\n  \"saga\": \"Carnets de route\",\r\n  \"prix\": 18.50,\r\n  \"isbn\": 9782070135608\r\n}",
+							"raw": "{\r\n  \"nom\": \"Librairie du Centre\",\r\n  \"localisation\": \"Paris 1er\",\r\n  \"livres\": [\r\n    {\r\n      \"stock\": 5,\r\n      \"livre\": \"665f0c2e8b9e2a1a2b3c4d5e\"\r\n    },\r\n    {\r\n      \"stock\": 2,\r\n      \"livre\": \"665f0c2e8b9e2a1a2b3c4d5f\"\r\n    }\r\n  ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -299,7 +290,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/libraries/:id",
+							"raw": "http://localhost:3000/libraries/68429ee9b5de0269912ac126",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -307,13 +298,7 @@
 							"port": "3000",
 							"path": [
 								"libraries",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": ""
-								}
+								"68429ee9b5de0269912ac126"
 							]
 						}
 					},
@@ -324,8 +309,17 @@
 					"request": {
 						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nom\": \"Librairie du côté droit\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:3000/libraries/:id",
+							"raw": "http://localhost:3000/libraries/68429ee9b5de0269912ac126",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -333,13 +327,7 @@
 							"port": "3000",
 							"path": [
 								"libraries",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": ""
-								}
+								"68429ee9b5de0269912ac126"
 							]
 						}
 					},
@@ -351,7 +339,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/libraries/:id",
+							"raw": "http://localhost:3000/libraries/68429ee9b5de0269912ac126",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -359,13 +347,7 @@
 							"port": "3000",
 							"path": [
 								"libraries",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": ""
-								}
+								"68429ee9b5de0269912ac126"
 							]
 						}
 					},
@@ -426,7 +408,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"titre\": \"Voyage en Sibérie\",\r\n  \"auteur\": [\r\n    { \"name\": \"Sylvain Tesson\" }\r\n  ],\r\n  \"editeur\": \"Gallimard\",\r\n  \"dateDeParution\": \"2011-10-06\",\r\n  \"resume\": \"Un récit d'aventure à travers la Sibérie.\",\r\n  \"nombreDePages\": 320,\r\n  \"genre\": \"Récit de voyage\",\r\n  \"format\": \"Broché\",\r\n  \"saga\": \"Carnets de route\",\r\n  \"prix\": 18.50,\r\n  \"isbn\": 9782070135608\r\n}",
+							"raw": "{\r\n  \"name\": \"Antoine Sch\",\r\n  \"email\": \"antoine.sch@example.com\",\r\n  \"age\": 40,\r\n  \"achatsPrecedents\": [\r\n    \"665f0c2e8b9e2a1a2b3c4d5e\",\r\n    \"665f0c2e8b9e2a1a2b3c4d5f\"\r\n  ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -434,14 +416,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/libraries",
+							"raw": "http://localhost:3000/clients",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
-								"libraries"
+								"clients"
 							]
 						}
 					},
@@ -449,11 +431,23 @@
 				},
 				{
 					"name": "Clientid",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:3000/clients/:id",
+							"raw": "http://localhost:3000/clients/6842a0cadb6536809f6e8005",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -461,13 +455,7 @@
 							"port": "3000",
 							"path": [
 								"clients",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": ""
-								}
+								"6842a0cadb6536809f6e8005"
 							]
 						}
 					},
@@ -478,8 +466,17 @@
 					"request": {
 						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Dimitri Zin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:3000/clients/:id",
+							"raw": "http://localhost:3000/clients/6842a0cadb6536809f6e8005",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -487,13 +484,7 @@
 							"port": "3000",
 							"path": [
 								"clients",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": ""
-								}
+								"6842a0cadb6536809f6e8005"
 							]
 						}
 					},
@@ -505,7 +496,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/clients/:id",
+							"raw": "http://localhost:3000/clients/6842a0cadb6536809f6e8005",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -513,13 +504,7 @@
 							"port": "3000",
 							"path": [
 								"clients",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": ""
-								}
+								"6842a0cadb6536809f6e8005"
 							]
 						}
 					},
